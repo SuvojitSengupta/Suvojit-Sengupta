@@ -1,328 +1,436 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Optimized Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<title>Digital Card</title>
 
 <style>
-:root {
-  --bg-dark: #0A1628;
-  --accent: #00FFBF;
-  --blue: #0070F3;
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255,255,255,0.65);
-  --border: rgba(255,255,255,0.12);
-  --radius: 18px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* Layout */
-body {
-  margin: 0;
-  background: radial-gradient(circle at top, #0A1628, #020617);
-  font-family: 'Syne', sans-serif;
-}
-
-.dbc-wrap {
-  min-height: 100vh;
+.fx-shell {
+  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-}
-
-/* Card */
-.dbc {
-  width: 100%;
-  max-width: 560px;
-  border-radius: var(--radius);
+  padding: 2rem 1rem;
+  background: #060c18;
+  border-radius: var(--border-radius-lg);
+  position: relative;
   overflow: hidden;
-  border: 1px solid var(--border);
+}
+
+.fx-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(0,210,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 90%, rgba(150,0,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.fx-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,210,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,210,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.card {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.card-inner {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,210,255,0.18);
+  border-radius: 20px;
+  overflow: hidden;
   backdrop-filter: blur(20px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dbc:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+.card-top {
+  padding: 26px 26px 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(0,210,255,0.1);
 }
 
-/* Top */
-.dbc-top {
-  background: var(--bg-dark);
-  padding: 26px;
+.card-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,210,255,0.5), transparent);
 }
 
-.dbc-top-grid {
+.scan-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d2ff, transparent);
+  animation: scan 3s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(140px); opacity: 0; }
+}
+
+.id-row {
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
-.dbc-avatar {
-  width: 56px;
-  height: 56px;
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
   border-radius: 14px;
-  background: linear-gradient(135deg, var(--accent), var(--blue));
+  background: linear-gradient(135deg, #00d2ff22, #9600ff22);
+  border: 1px solid rgba(0,210,255,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'DM Mono', monospace;
-  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+  color: #00d2ff;
+  letter-spacing: 1px;
 }
 
-.dbc-name {
-  font-size: 22px;
+.avatar-corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: #00d2ff;
+  border-style: solid;
+  opacity: 0.8;
+}
+
+.avatar-corner.tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+.avatar-corner.br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+.id-info {}
+
+.name {
+  font-size: 21px;
   font-weight: 700;
-  color: white;
+  color: #f0f8ff;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
 }
 
-.dbc-mono {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--accent);
+.mono-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #00d2ff;
+  margin-top: 3px;
+  opacity: 0.8;
 }
 
-/* Roles */
-.dbc-roles {
+.badges {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 14px;
-}
-
-.dbc-role {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-}
-
-.dbc-role.accent {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* Bottom */
-.dbc-bottom {
-  padding: 22px;
-  background: rgba(255,255,255,0.02);
-}
-
-.section-label {
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-
-/* Skills */
-.dbc-skills {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
-.skill-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-family: 'DM Mono', monospace;
-}
-
-.skill-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--blue);
-}
-
-.skill-dot.g { background: var(--accent); }
-.skill-dot.p { background: #7F77DD; }
-
-/* Divider */
-.dbc-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 18px 0;
-}
-
-/* Contact */
-.dbc-contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.dbc-contact-row {
-  display: flex;
-  gap: 10px;
-  font-size: 13px;
-}
-
-.dbc-contact-label {
-  font-size: 10px;
-  color: var(--text-secondary);
-  width: 55px;
-  font-family: 'DM Mono';
-}
-
-.dbc-contact-val {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.dbc-contact-val:hover {
-  color: var(--blue);
-}
-
-/* Buttons */
-.dbc-links {
-  display: flex;
-  gap: 8px;
   margin-top: 16px;
 }
 
-.dbc-link {
-  flex: 1;
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 12px;
-  text-decoration: none;
-  border: 1px solid var(--border);
-  color: white;
-  transition: all 0.2s ease;
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
 }
 
-.dbc-link:hover {
+.badge.cyan {
+  background: rgba(0,210,255,0.1);
+  border: 1px solid rgba(0,210,255,0.35);
+  color: #00d2ff;
+}
+
+.badge.purple {
+  background: rgba(150,0,255,0.1);
+  border: 1px solid rgba(150,0,255,0.35);
+  color: #c77dff;
+}
+
+.badge.gray {
   background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
 }
 
-.dbc-link.primary {
-  background: var(--bg-dark);
-  border-color: var(--bg-dark);
+.card-mid {
+  padding: 20px 26px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.dbc-link.primary:hover {
-  background: #162033;
+.sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(0,210,255,0.5);
+  margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
-/* Footer */
-.dbc-footer {
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.skill {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.skill:hover {
+  background: rgba(0,210,255,0.07);
+  border-color: rgba(0,210,255,0.3);
+  color: #00d2ff;
+}
+
+.card-contacts {
+  padding: 18px 26px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.c-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: rgba(0,210,255,0.06);
+  border: 1px solid rgba(0,210,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.c-icon svg { width: 12px; height: 12px; }
+
+.c-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(0,210,255,0.5);
+  width: 38px;
+  flex-shrink: 0;
+}
+
+.c-val {
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.c-val:hover { color: #00d2ff; }
+
+.card-actions {
+  padding: 16px 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.act-btn {
+  padding: 10px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'Space Grotesk', sans-serif;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: block;
+  letter-spacing: 0.3px;
+}
+
+.act-btn.ghost {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.65);
+}
+
+.act-btn.ghost:hover {
+  background: rgba(0,210,255,0.08);
+  border-color: rgba(0,210,255,0.35);
+  color: #00d2ff;
+}
+
+.act-btn.glow {
+  background: linear-gradient(135deg, rgba(0,210,255,0.15), rgba(150,0,255,0.15));
+  border: 1px solid rgba(0,210,255,0.4);
+  color: #00d2ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.act-btn.glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,210,255,0.1), rgba(150,0,255,0.1));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.act-btn.glow:hover::after { opacity: 1; }
+
+.card-footer {
+  padding: 12px 26px 14px;
+  background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: space-between;
-  margin-top: 14px;
-  font-size: 11px;
-  color: var(--text-secondary);
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.04);
 }
 
-.dbc-dot-live {
-  width: 7px;
-  height: 7px;
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(0,210,255,0.6);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #00CC7A;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
   animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  50% { opacity: 0.4; }
+@keyframes pulse { 50% { opacity: 0.3; box-shadow: none; } }
+
+.loc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  .dbc-skills {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 440px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-actions { grid-template-columns: 1fr 1fr; }
+  .act-btn.glow { grid-column: span 2; }
 }
 </style>
-</head>
 
-<body>
+<div class="fx-shell">
+  <div class="fx-grid"></div>
 
-<main class="dbc-wrap">
-<section class="dbc">
+  <div class="card">
+    <div class="card-inner">
 
-<div class="dbc-top">
-  <div class="dbc-top-grid">
-    <div class="dbc-avatar">SS</div>
-    <div>
-      <div class="dbc-name">Suvojit Sengupta</div>
-      <div class="dbc-mono">P.G.T Teacher @TechnoIndiaGroup</div>
+      <div class="card-top">
+        <div class="scan-line"></div>
+        <div class="id-row">
+          <div class="avatar-wrap">
+            <div class="avatar">SS</div>
+            <div class="avatar-corner tl"></div>
+            <div class="avatar-corner br"></div>
+          </div>
+          <div class="id-info">
+            <div class="name">Suvojit Sengupta</div>
+            <div class="mono-sub">PGT_TEACHER @ TECHNO_INDIA_GROUP (MCA)</div>
+          </div>
+        </div>
+        <div class="badges">
+          <span class="badge cyan">Full-Stack Dev</span>
+          <span class="badge purple">Mobile Dev</span>
+          <span class="badge gray">Mentor</span>
+        </div>
+      </div>
+
+      <div class="card-mid">
+        <div class="sec-label">// expertise</div>
+        <div class="skills-grid">
+          <div class="skill">React / RN</div>
+          <div class="skill">Laravel / PHP</div>
+          <div class="skill">AI & ML</div>
+          <div class="skill">Supabase / SQL</div>
+          <div class="skill">UI / UX</div>
+          <div class="skill">API Dev</div>
+        </div>
+      </div>
+
+      <div class="card-contacts">
+        <div class="sec-label">// contact</div>
+         <a href="contact.vcf" download="Suvojit_Sengupta_Contact_info" class="act-btn glow">click to Save Contact Info</a>
+        <div class="contact-row">
+          <div class="c-icon">
+            <svg viewBox="0 0 12 12" fill="none">
+              <rect x="1" y="2.5" width="10" height="7" rx="1" stroke="#00d2ff" stroke-width="1"/>
+              <path d="M1 4l5 3.5L11 4" stroke="#00d2ff" stroke-width="1"/>
+            </svg>
+          </div>
+          <span class="c-label">email</span>
+          <a href="mailto:suvojit.sengupta.mca@example.com" class="c-val">suvojit.sengupta.mca@example.com</a>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon">
+            <svg viewBox="0 0 12 12" fill="none">
+              <path d="M2 1.5h2l1 2.5-1 .75a7 7 0 003.25 3.25L8 7l2.5 1v2A.75.75 0 019.75 11C4 11 1 7 1 2.25A.75.75 0 012 1.5z" stroke="#00d2ff" stroke-width="1"/>
+            </svg>
+          </div>
+          <span class="c-label">phone</span>
+          <a href="tel:+917001671409" class="c-val">+91 70016 71409</a>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon">
+            <svg viewBox="0 0 12 12" fill="none">
+              <circle cx="6" cy="6" r="4.5" stroke="#00d2ff" stroke-width="1"/>
+              <path d="M6 1.5c0 0-2.5 2-2.5 4.5S6 10.5 6 10.5m0-9c0 0 2.5 2 2.5 4.5S6 10.5 6 10.5M1.5 6h9" stroke="#00d2ff" stroke-width="1"/>
+            </svg>
+          </div>
+          <span class="c-label">web</span>
+          <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="c-val">suvojit-sengupta.vercel.app</a>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <a href="https://github.com/suvojitsengupta" target="_blank" class="act-btn ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/suvojit-sengupta-82115820a/" target="_blank" class="act-btn ghost">LinkedIn</a>
+        <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="act-btn glow">Portfolio ↗</a>
+      </div>
+
+      <div class="card-footer">
+        <div class="status-row">
+          <div class="pulse-dot"></div>
+          OPEN_TO_OPPORTUNITIES
+        </div>
+        <span class="loc">IN // WB // SLG</span>
+      </div>
+
     </div>
   </div>
-
-  <div class="dbc-roles">
-    <span class="dbc-role accent">Full Stack Developer</span>
-    <span class="dbc-role accent">Software Engineer</span>
-    <span class="dbc-role">Mentor</span>
-    <span class="dbc-role">Mobile Dev</span>
-  </div>
 </div>
-
-<div class="dbc-bottom">
-
-<p class="section-label">Expertise</p>
-
-<div class="dbc-skills">
-  <div class="skill-item"><span class="skill-dot"></span>React / React Native</div>
-  <div class="skill-item"><span class="skill-dot g"></span>Laravel / PHP</div>
-  <div class="skill-item"><span class="skill-dot p"></span>AI & ML</div>
-  <div class="skill-item"><span class="skill-dot"></span>Supabase / SQL</div>
-  <div class="skill-item"><span class="skill-dot g"></span>UI/UX</div>
-  <div class="skill-item"><span class="skill-dot p"></span>API Dev</div>
-</div>
-
-<hr class="dbc-divider">
-
-<p class="section-label">Contact</p>
-<a href="contact.vcf" download="Suvojit_Sengupta_Contact lass="dbc-link primary"">
-    Save Contact Info
-</a>
-<address class="dbc-contacts">
-  <div class="dbc-contact-row">
-    <span class="dbc-contact-label">phone</span>
-    <a href="tel:+917001671409" class="dbc-contact-val">+91 7001671409</a>
-  </div>
-
-  <div class="dbc-contact-row">
-    <span class="dbc-contact-label">email</span>
-    <a href="mailto:suvojit.sengupta.mca@example.com?subject=Hello&body=I'd like to connect!" class="dbc-contact-val">
-      suvojit.sengupta.mca@example.com
-    </a>
-  </div>
-
-  <div class="dbc-contact-row">
-    <span class="dbc-contact-label">web</span>
-    <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="dbc-contact-val">
-      Portfolio
-    </a>
-  </div>
-</address>
-
-<div class="dbc-links">
-   <a href="https://github.com/suvojitsengupta" target="_blank" class="dbc-link">GitHub</a>
-        <a href="https://www.linkedin.com/in/suvojit-sengupta-82115820a/" target="_blank" class="dbc-link">LinkedIn</a>
-        <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="dbc-link primary">Portfolio ↗</a>
-</div>
-
-<div class="dbc-footer">
-  <div style="display:flex;gap:6px;align-items:center;">
-    <div class="dbc-dot-live"></div>
-    Open to opportunities
-  </div>
-  <div>India · WB</div>
-</div>
-
-</div>
-</section>
-</main>
-
-</body>
-</html>
