@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Optimized Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<title>Digital Card</title>
+
+<style>
+:root {
+  --bg-dark: #0A1628;
+  --accent: #00FFBF;
+  --blue: #0070F3;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.65);
+  --border: rgba(255,255,255,0.12);
+  --radius: 18px;
+}
+
+/* Layout */
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0A1628, #020617);
+  font-family: 'Syne', sans-serif;
+}
+
+.dbc-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card */
+.dbc {
+  width: 100%;
+  max-width: 560px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dbc:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* Top */
+.dbc-top {
+  background: var(--bg-dark);
+  padding: 26px;
+}
+
+.dbc-top-grid {
+  display: flex;
+  gap: 16px;
+}
+
+.dbc-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  color: white;
+}
+
+.dbc-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.dbc-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+/* Roles */
+.dbc-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.dbc-role {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.dbc-role.accent {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Bottom */
+.dbc-bottom {
+  padding: 22px;
+  background: rgba(255,255,255,0.02);
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+/* Skills */
+.dbc-skills {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: 'DM Mono', monospace;
+}
+
+.skill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.skill-dot.g { background: var(--accent); }
+.skill-dot.p { background: #7F77DD; }
+
+/* Divider */
+.dbc-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 18px 0;
+}
+
+/* Contact */
+.dbc-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dbc-contact-row {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.dbc-contact-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  width: 55px;
+  font-family: 'DM Mono';
+}
+
+.dbc-contact-val {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.dbc-contact-val:hover {
+  color: var(--blue);
+}
+
+/* Buttons */
+.dbc-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dbc-link {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.dbc-link:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.dbc-link.primary {
+  background: var(--bg-dark);
+  border-color: var(--bg-dark);
+}
+
+.dbc-link.primary:hover {
+  background: #162033;
+}
+
+/* Footer */
+.dbc-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.dbc-dot-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00CC7A;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.4; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .dbc-skills {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="dbc-wrap">
+<section class="dbc">
+
+<div class="dbc-top">
+  <div class="dbc-top-grid">
+    <div class="dbc-avatar">SS</div>
+    <div>
+      <div class="dbc-name">Suvojit Sengupta</div>
+      <div class="dbc-mono">P.G.T Teacher @TechnoIndiaGroup</div>
+    </div>
+  </div>
+
+  <div class="dbc-roles">
+    <span class="dbc-role accent">Full Stack Developer</span>
+    <span class="dbc-role accent">Software Engineer</span>
+    <span class="dbc-role">Mentor</span>
+    <span class="dbc-role">Mobile Dev</span>
+  </div>
+</div>
+
+<div class="dbc-bottom">
+
+<p class="section-label">Expertise</p>
+
+<div class="dbc-skills">
+  <div class="skill-item"><span class="skill-dot"></span>React / React Native</div>
+  <div class="skill-item"><span class="skill-dot g"></span>Laravel / PHP</div>
+  <div class="skill-item"><span class="skill-dot p"></span>AI & ML</div>
+  <div class="skill-item"><span class="skill-dot"></span>Supabase / SQL</div>
+  <div class="skill-item"><span class="skill-dot g"></span>UI/UX</div>
+  <div class="skill-item"><span class="skill-dot p"></span>API Dev</div>
+</div>
+
+<hr class="dbc-divider">
+
+<p class="section-label">Contact</p>
+
+<address class="dbc-contacts">
+  <div class="dbc-contact-row">
+    <span class="dbc-contact-label">phone</span>
+    <a href="tel:+917001671409" class="dbc-contact-val">+91 7001671409</a>
+  </div>
+
+  <div class="dbc-contact-row">
+    <span class="dbc-contact-label">email</span>
+    <a href="mailto:suvojit.sengupta.mca@example.com" class="dbc-contact-val">
+      suvojit.sengupta.mca@example.com
+    </a>
+  </div>
+
+  <div class="dbc-contact-row">
+    <span class="dbc-contact-label">web</span>
+    <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="dbc-contact-val">
+      Portfolio
+    </a>
+  </div>
+</address>
+
+<div class="dbc-links">
+   <a href="https://github.com/suvojitsengupta" target="_blank" class="dbc-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/suvojit-sengupta-82115820a/" target="_blank" class="dbc-link">LinkedIn</a>
+        <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="dbc-link primary">Portfolio ↗</a>
+</div>
+
+<div class="dbc-footer">
+  <div style="display:flex;gap:6px;align-items:center;">
+    <div class="dbc-dot-live"></div>
+    Open to opportunities
+  </div>
+  <div>India · WB</div>
+</div>
+
+</div>
+</section>
+</main>
+
+</body>
+</html>
