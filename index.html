@@ -1,15 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+* {
+  box-sizing: border-box;
+}
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #060c18;
+}
+
+/* FULLSCREEN FIX */
 .fx-shell {
-  min-height: 520px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 0;
   background: #060c18;
-  border-radius: var(--border-radius-lg);
   position: relative;
   overflow: hidden;
 }
@@ -101,7 +119,6 @@
   font-size: 18px;
   font-weight: 500;
   color: #00d2ff;
-  letter-spacing: 1px;
 }
 
 .avatar-corner {
@@ -110,28 +127,21 @@
   height: 8px;
   border-color: #00d2ff;
   border-style: solid;
-  opacity: 0.8;
 }
 
 .avatar-corner.tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
 .avatar-corner.br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
 
-.id-info {}
-
 .name {
   font-size: 21px;
   font-weight: 700;
   color: #f0f8ff;
-  line-height: 1.2;
-  letter-spacing: -0.3px;
 }
 
 .mono-sub {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   color: #00d2ff;
-  margin-top: 3px;
-  opacity: 0.8;
 }
 
 .badges {
@@ -143,10 +153,8 @@
 
 .badge {
   font-size: 10px;
-  font-weight: 500;
   padding: 3px 10px;
   border-radius: 999px;
-  letter-spacing: 0.3px;
 }
 
 .badge.cyan {
@@ -169,16 +177,6 @@
 
 .card-mid {
   padding: 20px 26px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.sec-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: rgba(0,210,255,0.5);
-  margin-bottom: 12px;
-  text-transform: uppercase;
 }
 
 .skills-grid {
@@ -189,26 +187,14 @@
 
 .skill {
   background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
-  padding: 7px 8px;
+  padding: 7px;
   font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.7);
   text-align: center;
-  transition: all 0.2s;
-  cursor: default;
-}
-
-.skill:hover {
-  background: rgba(0,210,255,0.07);
-  border-color: rgba(0,210,255,0.3);
-  color: #00d2ff;
 }
 
 .card-contacts {
   padding: 18px 26px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -220,36 +206,11 @@
   gap: 10px;
 }
 
-.c-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  background: rgba(0,210,255,0.06);
-  border: 1px solid rgba(0,210,255,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.c-icon svg { width: 12px; height: 12px; }
-
-.c-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: rgba(0,210,255,0.5);
-  width: 38px;
-  flex-shrink: 0;
-}
-
 .c-val {
   font-size: 12px;
   color: rgba(255,255,255,0.8);
   text-decoration: none;
-  font-weight: 400;
 }
-
-.c-val:hover { color: #00d2ff; }
 
 .card-actions {
   padding: 16px 26px;
@@ -259,91 +220,41 @@
 }
 
 .act-btn {
-  padding: 10px 6px;
+  padding: 10px;
   border-radius: 10px;
-  font-size: 11px;
-  font-weight: 500;
-  font-family: 'Space Grotesk', sans-serif;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: block;
-  letter-spacing: 0.3px;
 }
 
 .act-btn.ghost {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.65);
-}
-
-.act-btn.ghost:hover {
-  background: rgba(0,210,255,0.08);
-  border-color: rgba(0,210,255,0.35);
-  color: #00d2ff;
 }
 
 .act-btn.glow {
   background: linear-gradient(135deg, rgba(0,210,255,0.15), rgba(150,0,255,0.15));
-  border: 1px solid rgba(0,210,255,0.4);
   color: #00d2ff;
-  position: relative;
-  overflow: hidden;
 }
-
-.act-btn.glow::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0,210,255,0.1), rgba(150,0,255,0.1));
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.act-btn.glow:hover::after { opacity: 1; }
 
 .card-footer {
-  padding: 12px 26px 14px;
-  background: rgba(0,0,0,0.3);
+  padding: 12px 26px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid rgba(255,255,255,0.04);
 }
 
-.status-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(0,210,255,0.6);
-}
+/* MOBILE EDGE-TO-EDGE */
+@media (max-width: 480px) {
+  .card {
+    max-width: 100%;
+  }
 
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #00ff88;
-  box-shadow: 0 0 6px #00ff88;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse { 50% { opacity: 0.3; box-shadow: none; } }
-
-.loc {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: rgba(255,255,255,0.25);
-}
-
-@media (max-width: 440px) {
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .card-actions { grid-template-columns: 1fr 1fr; }
-  .act-btn.glow { grid-column: span 2; }
+  .card-inner {
+    border-radius: 0;
+  }
 }
 </style>
+</head>
+
+<body>
 
 <div class="fx-shell">
   <div class="fx-grid"></div>
@@ -359,78 +270,28 @@
             <div class="avatar-corner tl"></div>
             <div class="avatar-corner br"></div>
           </div>
-          <div class="id-info">
+          <div>
             <div class="name">Suvojit Sengupta</div>
             <div class="mono-sub">PGT_TEACHER @ TECHNO_INDIA_GROUP (MCA)</div>
           </div>
         </div>
-        <div class="badges">
-          <span class="badge cyan">Full-Stack Dev</span>
-          <span class="badge purple">Mobile Dev</span>
-          <span class="badge gray">Mentor</span>
-        </div>
-      </div>
-
-      <div class="card-mid">
-        <div class="sec-label">// expertise</div>
-        <div class="skills-grid">
-          <div class="skill">React / RN</div>
-          <div class="skill">Laravel / PHP</div>
-          <div class="skill">AI & ML</div>
-          <div class="skill">Supabase / SQL</div>
-          <div class="skill">UI / UX</div>
-          <div class="skill">API Dev</div>
-        </div>
       </div>
 
       <div class="card-contacts">
-        <div class="sec-label">// contact</div>
-         <a href="contact.vcf" download="Suvojit_Sengupta_Contact_info" class="act-btn glow">click to Save Contact Info</a>
-        <div class="contact-row">
-          <div class="c-icon">
-            <svg viewBox="0 0 12 12" fill="none">
-              <rect x="1" y="2.5" width="10" height="7" rx="1" stroke="#00d2ff" stroke-width="1"/>
-              <path d="M1 4l5 3.5L11 4" stroke="#00d2ff" stroke-width="1"/>
-            </svg>
-          </div>
-          <span class="c-label">email</span>
-          <a href="mailto:suvojit.sengupta.mca@example.com" class="c-val">suvojit.sengupta.mca@example.com</a>
-        </div>
-        <div class="contact-row">
-          <div class="c-icon">
-            <svg viewBox="0 0 12 12" fill="none">
-              <path d="M2 1.5h2l1 2.5-1 .75a7 7 0 003.25 3.25L8 7l2.5 1v2A.75.75 0 019.75 11C4 11 1 7 1 2.25A.75.75 0 012 1.5z" stroke="#00d2ff" stroke-width="1"/>
-            </svg>
-          </div>
-          <span class="c-label">phone</span>
-          <a href="tel:+917001671409" class="c-val">+91 70016 71409</a>
-        </div>
-        <div class="contact-row">
-          <div class="c-icon">
-            <svg viewBox="0 0 12 12" fill="none">
-              <circle cx="6" cy="6" r="4.5" stroke="#00d2ff" stroke-width="1"/>
-              <path d="M6 1.5c0 0-2.5 2-2.5 4.5S6 10.5 6 10.5m0-9c0 0 2.5 2 2.5 4.5S6 10.5 6 10.5M1.5 6h9" stroke="#00d2ff" stroke-width="1"/>
-            </svg>
-          </div>
-          <span class="c-label">web</span>
-          <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="c-val">suvojit-sengupta.vercel.app</a>
-        </div>
+        <a href="contact.vcf" download class="act-btn glow">Save Contact</a>
+        <a href="mailto:suvojit.sengupta.mca@example.com" class="c-val">Email</a>
+        <a href="tel:+917001671409" class="c-val">Phone</a>
       </div>
 
       <div class="card-actions">
         <a href="https://github.com/suvojitsengupta" target="_blank" class="act-btn ghost">GitHub</a>
         <a href="https://www.linkedin.com/in/suvojit-sengupta-82115820a/" target="_blank" class="act-btn ghost">LinkedIn</a>
-        <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="act-btn glow">Portfolio ↗</a>
-      </div>
-
-      <div class="card-footer">
-        <div class="status-row">
-          <div class="pulse-dot"></div>
-          OPEN_TO_OPPORTUNITIES
-        </div>
-        <span class="loc">IN // WB // SLG</span>
+        <a href="https://suvojit-sengupta.vercel.app/" target="_blank" class="act-btn glow">Portfolio</a>
       </div>
 
     </div>
   </div>
 </div>
+
+</body>
+</html>
