@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Suvojit Sengupta
+N:Sengupta;Suvojit;;;
+TITLE:Full Stack Developer & Technical Mentor
+TEL;TYPE=CELL,VOICE:+917001671409
+ADR;TYPE=HOME:;;Jalpaiguri;West Bengal;;India
+EMAIL;TYPE=INTERNET:suvojit.sengupta.ssg@gmail.com
+URL:https://suvojit-sengupta.vercel.app/
+END:VCARD
